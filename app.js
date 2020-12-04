@@ -1,10 +1,19 @@
 const express = require('express')
-
+const morgan = require('morgan')
 // express app
 const app = express()
 
 // listen for requests
 app.listen(3000)
+
+// Middleware Notice the next and next () or else it won't move on
+app.use(express.static('public'))
+app.use(morgan('dev'))
+
+app.use((req, res, next) => {
+  console.log('in the next middleware')
+  next()
+})
 
 // register view engine
 app.set('view engine', 'ejs')
